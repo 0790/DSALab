@@ -1,93 +1,52 @@
-#include <stdio.h>
-// using namespace std;
+#include<stdio.h>
+int G[500][500],x[500];
+char v1[500] ; //G:adjacency matrix,x:colors
+void next_color(int k){
+   int i,j;
+   x[k]=1;  //coloring vertex with color1
+   for(i=0;i<k;i++){ //checking all k-1 vertices-backtracking
+     if(G[i][k]!=0 && x[k]==x[i])  //if connected and has same color
+       x[k]=x[i]+1;  //assign higher color than x[i]
+   }
+}
 
-#define endl "\n"
+int main(){
+  int n,e,i,j,k,l;
+ 
+  scanf("%d",&n);  //total vertices
 
-int main()
-{
-	
-  int n;
-  printf("Enter the number of vertices \n");
-  scanf("%d",&n);
-  printf("Enter the adjacency matrix\n");
-  // cin>>n;
-  int a[n][n],s=0,m=0,adj[n][n+1];
-  for (int i = 0; i < n; ++i)
-  {
-    adj[i][n]=0;
-    /* code */
-  }
-  for (int i = 0; i < n; ++i)
-  {
-    for (int j = 0; j < n; ++j)
-    {
-      scanf("%d",&a[i][j]);
-
-      if(a[i][j]==1)
-      {
-        adj[i][adj[i][n]++]=j;
-   
-      }
-      /* code */
-    }
-
-    /* code */
-  }
-
-  int V=n;
-  int result[V]; 
-  result[0]  = 0;
-  for (int u = 1; u < V; u++) 
-    result[u] = -1;  
-  int available[V];
-  for (int i = 0; i < V; ++i)
-  {
-    available[i]=0;
-     /* code */
-  } 
-  for (int u = 1; u < V; u++) 
-  { 
-
-    for (int i=0; i <adj[u][n]; ++i) 
-      if (result[adj[u][i]] != -1) 
-        available[result[adj[u][i]]] = 1; 
-
-      int cr; 
-      for (cr = 0; cr < V; cr++) 
-        if (available[cr] == 0) 
-          break; 
-        
-        result[u] = cr; 
-
-        for (int i = 0; i <adj[u][n]; ++i) 
-          if (result[adj[u][i]] != -1) 
-            available[result[adj[u][i]]] = 0; 
-        } 
-
-        for (int u = 0; u < V; u++) 
-          printf("Vertex %d  :  Color %d\n",u,result[u]); 
-        int c[n];
-        for (int i = 0; i < n; ++i)
-        {
-          c[i]=0;
-        /* code */
-        }
-        for (int i = 0; i < n; ++i)
-        {
-          c[result[i]]=1;
-        /* code */
-        }
-        int ans=0;
-        for (int i = 0; i < n; ++i)
-        {
-          if(c[i]==1)
-            ans++;
-        /* code */
-        }
+  scanf("%d",&e);  //total edges
+ 
+  for(i=0;i<n;i++)
+    for(j=0;j<n;j++)
+      G[i][j]=0;  //assign 0 to all index of adjacency matrix
+     
   
-        printf("chromatic number = %d\n",ans);
+  for(i=0;i<e;i++){
+    scanf("%d %d",&k,&l);
+    G[k][l]=1;
+    G[l][k]=1;
+  }
+ 
+  for(i=0;i<n;i++)
+    next_color(i);  //coloring each vertex
 
-        return 0;
-
-
+  
+  int flag = 0 ;
+  
+  for(i=0; i<n && flag == 0;i++)  //displaying color of each vertex
+    {
+      //printf("Vertex[%d] : %d\n",i+1,x[i]);
+      if(x[i] >2 ) {
+        printf("NEED MORE COLOURS") ;
+        flag = 1 ;
       }
+      else if(x[i] == 1) v1[i] = 'R' ; 
+      else if(x[i] == 2) v1[i] = 'B' ;
+      }
+      for(int i = 0 ; i < n ; i++)
+      {
+        printf("%c",v1[i]);
+      }
+        return 0;
+}
