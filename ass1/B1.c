@@ -37,7 +37,8 @@ int main()
 
 void createList(int n)
 {
-    int i, data;
+    int i;
+    char data;
     struct node *newNode;
 
     if(n >= 1)
@@ -121,33 +122,3 @@ void displayListFromFirst()
 }
 
 
-/**
- * Display the content of the list from last to first
- */
-void displayListFromEnd()
-{
-    struct node * temp;
-    int n = 0;
-
-    if(last == NULL)
-    {
-        return ;
-    }
-    else
-    {
-        temp = last;
-        
-
-        while(temp != NULL)
-        {
-            printf("%c ", temp->data);
-
-            n++;
-            
-            /* Move the current pointer to previous node */
-            temp = temp->prev; 
-        }
-        
-    }
-    printf("\n") ;
-}
